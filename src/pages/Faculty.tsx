@@ -1,5 +1,6 @@
+import { useState, useMemo } from "react";
 import { Navigation } from "@/components/ui/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -89,6 +90,14 @@ const Faculty = () => {
     }
   ];
 
+  const [search, setSearch] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
+
+  const normalizedSearch = search.trim().toLowerCase();
+
+  const slug = (str: string) => str.toLowerCase().replace(/\s+/g, "-");
+
   const getWorkloadColor = (workload: number) => {
     if (workload >= 90) return "text-destructive";
     if (workload >= 80) return "text-warning";
@@ -106,6 +115,43 @@ const Faculty = () => {
     }
   };
 
+  const filteredFaculty = useMemo(() => {
+    return facultyMembers
+      .filter((f) => {
+        const deptSlug = slug(f.department);
+        const statusSlug = slug(f.status);
+
+        const deptMatches =
+          selectedDepartment === "all" || selectedDepartment === deptSlug;
+        const statusMatches =
+          selectedStatus === "all" || selectedStatus === statusSlug;
+        if (!deptMatches || !statusMatches) return false;
+
+        if (!normalizedSearch) return true;
+
+        const haystack = `${f.name} ${f.department} ${f.specialization} ${f.email} ${f.phone}`.toLowerCase();
+        return haystack.includes(normalizedSearch);
+      })
+      .sort((a, b) => {
+        if (!normalizedSearch) return 0;
+
+        const aName = a.name.toLowerCase();
+        const bName = b.name.toLowerCase();
+        const term = normalizedSearch;
+
+        const aStarts = aName.startsWith(term);
+        const bStarts = bName.startsWith(term);
+        if (aStarts && !bStarts) return -1;
+        if (!aStarts && bStarts) return 1;
+
+        const aIndex = aName.indexOf(term);
+        const bIndex = bName.indexOf(term);
+        if (aIndex !== bIndex) return aIndex - bIndex;
+
+        return a.id - b.id;
+      });
+  }, [facultyMembers, selectedDepartment, selectedStatus, normalizedSearch]);
+
   return (
     <div className="min-h-screen bg-gradient-background">
       <Navigation />
@@ -114,7 +160,9 @@ const Faculty = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-foreground">Faculty Management</h1>
-            <p className="text-muted-foreground mt-2">Manage faculty members and their schedules</p>
+            <p className="text-muted-foreground mt-2">
+              Manage faculty members and their schedules
+            </p>
           </div>
           <Button className="bg-gradient-primary">
             <Plus className="h-4 w-4 mr-2" />
@@ -122,7 +170,6 @@ const Faculty = () => {
           </Button>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardContent className="pt-6">
@@ -140,7 +187,9 @@ const Faculty = () => {
               <div className="flex items-center">
                 <Calendar className="h-8 w-8 text-accent" />
                 <div className="ml-4">
-                  <p className="text-2xl font-bold">{facultyMembers.filter(f => f.status === "Active").length}</p>
+                  <p className="text-2xl font-bold">
+                    {facultyMembers.filter(f => f.status === "Active").length}
+                  </p>
                   <p className="text-sm text-muted-foreground">Active This Week</p>
                 </div>
               </div>
@@ -162,7 +211,9 @@ const Faculty = () => {
               <div className="flex items-center">
                 <Users className="h-8 w-8 text-destructive" />
                 <div className="ml-4">
-                  <p className="text-2xl font-bold">{facultyMembers.filter(f => f.status === "On Leave").length}</p>
+                  <p className="text-2xl font-bold">
+                    {facultyMembers.filter(f => f.status === "On Leave").length}
+                  </p>
                   <p className="text-sm text-muted-foreground">On Leave</p>
                 </div>
               </div>
@@ -170,34 +221,41 @@ const Faculty = () => {
           </Card>
         </div>
 
-        {/* Filters */}
         <Card className="mb-6">
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search faculty members..." className="pl-9" />
+                  <Input
+                    placeholder="Search faculty members..."
+                    className="pl-9"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
                 </div>
               </div>
-              <Select defaultValue="all-departments">
+
+              <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
                 <SelectTrigger className="w-[200px]">
-                  <SelectValue />
+                  <SelectValue placeholder="All Departments" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all-departments">All Departments</SelectItem>
+                  <SelectItem value="all">All Departments</SelectItem>
                   <SelectItem value="computer-science">Computer Science</SelectItem>
                   <SelectItem value="information-technology">Information Technology</SelectItem>
-                  <SelectItem value="mechanical">Mechanical Engineering</SelectItem>
-                  <SelectItem value="electrical">Electrical Engineering</SelectItem>
+                  <SelectItem value="mechanical-engineering">Mechanical Engineering</SelectItem>
+                  <SelectItem value="electrical-engineering">Electrical Engineering</SelectItem>
                 </SelectContent>
               </Select>
-              <Select defaultValue="all-status">
+
+              {/* Status Filter */}
+              <Select value={selectedStatus} onValueChange={setSelectedStatus}>
                 <SelectTrigger className="w-[150px]">
-                  <SelectValue />
+                  <SelectValue placeholder="All Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all-status">All Status</SelectItem>
+                  <SelectItem value="all">All Status</SelectItem>
                   <SelectItem value="active">Active</SelectItem>
                   <SelectItem value="on-leave">On Leave</SelectItem>
                 </SelectContent>
@@ -208,14 +266,16 @@ const Faculty = () => {
 
         {/* Faculty Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {facultyMembers.map((faculty) => (
+          {filteredFaculty.map((faculty) => (
             <Card key={faculty.id} className="hover:shadow-medium transition-smooth">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3">
                     <Avatar>
                       <AvatarImage src={faculty.avatar} />
-                      <AvatarFallback>{faculty.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback>
+                        {faculty.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
                     </Avatar>
                     <div>
                       <h3 className="font-semibold">{faculty.name}</h3>
@@ -230,7 +290,7 @@ const Faculty = () => {
                   <p className="text-sm text-muted-foreground mb-1">Specialization</p>
                   <p className="text-sm font-medium">{faculty.specialization}</p>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Workload</span>
                   <div className="flex items-center space-x-2">
