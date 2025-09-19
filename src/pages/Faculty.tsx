@@ -249,7 +249,6 @@ const Faculty = () => {
                 </SelectContent>
               </Select>
 
-              {/* Status Filter */}
               <Select value={selectedStatus} onValueChange={setSelectedStatus}>
                 <SelectTrigger className="w-[150px]">
                   <SelectValue placeholder="All Status" />
@@ -264,7 +263,6 @@ const Faculty = () => {
           </CardContent>
         </Card>
 
-        {/* Faculty Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredFaculty.map((faculty) => (
             <Card key={faculty.id} className="hover:shadow-medium transition-smooth">
