@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Calendar, Settings, Users, BookOpen, BarChart3, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from "react-router-dom";
 
 const navigationItems = [
   { icon: Calendar, label: "Dashboard", href: "/" },
@@ -13,6 +14,7 @@ const navigationItems = [
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <nav className="bg-card border-b shadow-soft">
@@ -27,15 +29,21 @@ export function Navigation() {
             <div className="hidden md:ml-6 md:flex md:space-x-8">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = location.pathname === item.href;
                 return (
-                  <a
+                  <Link
                     key={item.label}
-                    href={item.href}
-                    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-muted-foreground hover:text-primary transition-smooth"
+                    to={item.href}
+                    className={cn(
+                      "inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-smooth",
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-soft"
+                        : "text-muted-foreground hover:text-primary hover:bg-muted/50"
+                    )}
                   >
                     <Icon className="h-4 w-4 mr-2" />
                     {item.label}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -67,16 +75,22 @@ export function Navigation() {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-card border-t">
             {navigationItems.map((item) => {
               const Icon = item.icon;
+              const isActive = location.pathname === item.href;
               return (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
-                  className="flex items-center px-3 py-2 text-base font-medium text-muted-foreground hover:text-primary transition-smooth"
+                  to={item.href}
+                  className={cn(
+                    "flex items-center px-3 py-2 rounded-lg text-base font-medium transition-smooth",
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-primary hover:bg-muted/50"
+                  )}
                   onClick={() => setIsOpen(false)}
                 >
                   <Icon className="h-4 w-4 mr-2" />
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </div>
