@@ -19,13 +19,13 @@ All colors MUST be HSL.
     --popover-foreground: 225 29% 15%;
 
     /* Primary: Deep Educational Blue */
-    --primary: 217 73% 30%;
+    --primary: 217 80% 25%;
     --primary-foreground: 0 0% 98%;
     --primary-light: 217 73% 45%;
     --primary-dark: 217 73% 20%;
 
     /* Secondary: Academic Green */
-    --secondary: 142 69% 90%;
+    --secondary: 140 70% 90%;
     --secondary-foreground: 142 69% 20%;
     --secondary-accent: 142 69% 45%;
 
@@ -33,12 +33,12 @@ All colors MUST be HSL.
     --muted: 225 15% 95%;
     --muted-foreground: 225 15% 45%;
 
-    /* Accent: Success Green */
-    --accent: 142 69% 45%;
+    /* Accent: Success purple */
+    --accent: 263 95% 70%;
     --accent-foreground: 0 0% 98%;
 
-    /* Warning: Academic Orange */
-    --warning: 25 95% 53%;
+    /* Warning: Academic  */
+    --warning: 210 90% 50%;
     --warning-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
