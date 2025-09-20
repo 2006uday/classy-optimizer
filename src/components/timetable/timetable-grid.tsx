@@ -75,13 +75,11 @@ export function TimetableGrid({ title = "Weekly Timetable", data = defaultData }
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
-          <div className="grid grid-cols-6 gap-2 min-w-[800px]">
+          <div className="grid grid-cols-6 gap-2 w-max-fit">
             {/* Header */}
             <div className="font-semibold text-muted-foreground p-3 text-center">Time</div>
             {days.map((day) => (
-              <div key={day} className="font-semibold text-muted-foreground p-3 text-center">
-                {day}
-              </div>
+              <div key={day} className="font-semibold text-muted-foreground p-3 text-center">{day}</div>
             ))}
 
             {/* Time slots */}
@@ -93,24 +91,27 @@ export function TimetableGrid({ title = "Weekly Timetable", data = defaultData }
                 {days.map((day) => {
                   const slot = data[day]?.find(s => s.time === timeSlot);
                   return (
-                    <div key={`${day}-${timeSlot}`} className="p-2">
+                    <div key={`${day}-${timeSlot}`} className="p-2 flex justify-center">
                       {slot?.subject ? (
-                        <div className={`p-3 rounded-lg border-2 transition-smooth hover:shadow-soft ${getTypeColor(slot.type)}`}>
-                          <div className="font-semibold text-sm mb-1">{slot.subject}</div>
-                          <div className="flex items-center gap-1 text-xs mb-1">
+                        <div className={`flex flex-col justify-between p-3 rounded-lg border-2 transition-smooth hover:shadow-soft h-32 ${slot.type === "lecture" ? "w-max text-center" : "w-full"} ${getTypeColor(slot.type)}`}>
+                          <div className="font-semibold text-sm">{slot.subject}</div>
+                          <div className="flex items-center gap-1 text-xs">
                             <User className="h-3 w-3" />
                             <span>{slot.faculty}</span>
                           </div>
-                          <div className="flex items-center gap-1 text-xs mb-2">
+                          <div className="flex items-center gap-1 text-xs">
                             <MapPin className="h-3 w-3" />
                             <span>{slot.room}</span>
                           </div>
-                          <Badge variant="secondary" className="text-xs">
-                            {slot.type}
-                          </Badge>
+                          {/* Centered Badge */}
+                          <div className="flex justify-center mt-auto">
+                            <Badge variant="secondary" className="text-xs w-max">
+                              {slot.type}
+                            </Badge>
+                          </div>
                         </div>
                       ) : (
-                        <div className="p-3 rounded-lg border-2 border-dashed border-muted bg-muted/20 text-muted-foreground text-center text-xs">
+                        <div className="flex items-center justify-center h-35 w-auto p-3 rounded-lg border-2 border-dashed border-muted bg-muted/20 text-muted-foreground text-center text-xs ">
                           Free Period
                         </div>
                       )}
