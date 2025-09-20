@@ -16,12 +16,12 @@ const Dashboard = () => {
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
-        <section className="relative rounded-2xl overflow-hidden shadow-strong mb-8">
-          <div className="absolute inset-0 bg-gradient-primary opacity-90"></div>
+        <section className="relative rounded-2xl overflow-hidden shadow-strong mb-8 bg-[#00004d]">
+          <div className="absolute inset-0 bg-gradient-primary opacity-40"></div>
           <img 
             src={heroImage} 
             alt="Smart Classroom Scheduler Dashboard"
-            className="w-full h-64 object-cover"
+            className="w-full h-64 object-cover opacity-20"
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-white">
@@ -31,13 +31,13 @@ const Dashboard = () => {
                 Generate clash-free schedules that maximize resource utilization and faculty satisfaction.
               </p>
               <div className="flex gap-4 justify-center">
-                <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                <Badge className="bg-white/20 text-white border-white/30 hover:text-black hover:bg-white/70">
                   NEP 2020 Compliant
                 </Badge>
-                <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                <Badge className="bg-white/20 text-white border-white/30 hover:text-black hover:bg-white/70">
                   Multi-Department Support
                 </Badge>
-                <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                <Badge className="bg-white/20 text-white border-white/30 hover:text-black hover:bg-white/70">
                   AI Optimization
                 </Badge>
               </div>
@@ -75,17 +75,17 @@ const Dashboard = () => {
         </section>
 
         {/* Main Content Tabs */}
-        <Tabs defaultValue="dashboard" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-1 md:grid-cols-3">
+        <Tabs defaultValue="dashboard" className="space-y-6 ">
+          <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 bg-[#000060] text-white">
             <TabsTrigger value="dashboard">Current Timetable</TabsTrigger>
             <TabsTrigger value="create">Create New Schedule</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2">
-                <TimetableGrid title="Computer Science - Semester 6" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 ">
+              <div className="lg:col-span-2 ">
+                <TimetableGrid  /> Computer Science - Semester 6
               </div>
               <div className="space-y-6">
                 <Card>
@@ -122,18 +122,24 @@ const Dashboard = () => {
                     <CardTitle>Quick Actions</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start">
+                    <a href="./Timetables">
+                      <Button variant="outline" className="w-full justify-start my-1">
                       <Calendar className="h-4 w-4 mr-2" />
                       Generate New Schedule
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start">
+                      </Button>
+                    </a>
+                    <a href="Faculty">
+                      <Button variant="outline" className="w-full justify-start my-1">
                       <Users className="h-4 w-4 mr-2" />
                       Manage Faculty
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start">
+                      </Button>
+                    </a>
+                    <a href="Analytics">
+                    <Button variant="outline" className="w-full justify-start my-1">
                       <Clock className="h-4 w-4 mr-2" />
                       View All Conflicts
                     </Button>
+                    </a>
                   </CardContent>
                 </Card>
               </div>
