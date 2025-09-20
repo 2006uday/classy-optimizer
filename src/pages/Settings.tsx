@@ -146,21 +146,30 @@ const Settings = () => {
                     <Label>Saturday Classes</Label>
                     <p className="text-sm text-muted-foreground">Allow scheduling classes on Saturday</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Optimize for Room Utilization</Label>
                     <p className="text-sm text-muted-foreground">Prioritize maximizing room usage</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Faculty Workload Balancing</Label>
                     <p className="text-sm text-muted-foreground">Ensure equal distribution of teaching load</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
                 </div>
               </div>
             </CardContent>
@@ -180,14 +189,20 @@ const Settings = () => {
                   <Label>Schedule Conflicts</Label>
                   <p className="text-sm text-muted-foreground">Get notified when timetable conflicts are detected</p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
               </div>
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Faculty Leave Updates</Label>
                   <p className="text-sm text-muted-foreground">Alerts when faculty members apply for leave</p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
               </div>
               <div className="flex items-center justify-between">
                 <div>
@@ -201,7 +216,10 @@ const Settings = () => {
                   <Label>Weekly Reports</Label>
                   <p className="text-sm text-muted-foreground">Receive weekly analytics and performance reports</p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
               </div>
             </CardContent>
           </Card>
@@ -229,14 +247,20 @@ const Settings = () => {
                   <Label>Faculty Self-Service</Label>
                   <p className="text-sm text-muted-foreground">Allow faculty to view and request schedule changes</p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
               </div>
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Department Head Access</Label>
                   <p className="text-sm text-muted-foreground">Grant department heads administrative privileges</p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
               </div>
               <div className="flex items-center justify-between">
                 <div>
@@ -273,7 +297,10 @@ const Settings = () => {
                   <Label>Automatic Backups</Label>
                   <p className="text-sm text-muted-foreground">Create daily backups of timetable data</p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
               </div>
               <div>
                 <Label htmlFor="retention-period">Data Retention Period</Label>
@@ -330,7 +357,10 @@ const Settings = () => {
                   <Label>Audit Logging</Label>
                   <p className="text-sm text-muted-foreground">Log all system changes and user activities</p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+  defaultChecked
+  className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300"
+/>
               </div>
             </CardContent>
           </Card>
